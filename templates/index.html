@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechMate Agent</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #161b22;
+      padding: 14px 24px;
+      border-bottom: 1px solid #30363d;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header h1 { color: #58a6ff; font-size: 1.2rem; }
+    header p  { color: #8b949e; font-size: 0.8rem; margin-top: 2px; }
+
+    .tags { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+    .tag {
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 1px 8px;
+      font-size: 0.72rem;
+      color: #8b949e;
+    }
+
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .msg {
+      max-width: 78%;
+      padding: 10px 16px;
+      border-radius: 10px;
+      line-height: 1.55;
+      font-size: 0.92rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .msg.user  {
+      background: #1f6feb;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 3px;
+    }
+    .msg.agent {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-left: 3px solid #58a6ff;
+      align-self: flex-start;
+      border-bottom-left-radius: 3px;
+    }
+    .msg.typing { color: #8b949e; font-style: italic; }
+
+    #input-area {
+      background: #161b22;
+      border-top: 1px solid #30363d;
+      padding: 14px 24px;
+      display: flex;
+      gap: 10px;
+    }
+
+    #msg-input {
+      flex: 1;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #c9d1d9;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #msg-input:focus { border-color: #58a6ff; }
+
+    #send-btn {
+      background: #238636;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    #send-btn:hover:not(:disabled) { background: #2ea043; }
+    #send-btn:disabled { background: #21262d; color: #8b949e; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>TechMate Agent</h1>
+    <div class="tags">
+      <span class="tag">sistema</span>
+      <span class="tag">clima</span>
+      <span class="tag">cripto</span>
+      <span class="tag">website</span>
+    </div>
+  </div>
+</header>
+
+<div id="chat">
+  <div class="msg agent">Olá! Sou o <strong>TechMate</strong>, seu assistente tecnológico.
+
+Posso te ajudar com:
+• <strong>Sistema</strong> — uso de CPU, RAM, disco e processos
+• <strong>Clima</strong> — tempo atual em qualquer cidade
+• <strong>Cripto</strong> — cotação de Bitcoin, Ethereum e outras moedas
+• <strong>Website</strong> — verificar se um site está online e medir latência
+
+Como posso ajudar?</div>
+</div>
+
+<div id="input-area">
+  <input type="text" id="msg-input" placeholder="Ex: Como está o clima em São Paulo?" autofocus>
+  <button id="send-btn" onclick="sendMessage()">Enviar</button>
+</div>
+
+<script>
+  const chat   = document.getElementById('chat');
+  const input  = document.getElementById('msg-input');
+  const button = document.getElementById('send-btn');
+
+  input.addEventListener('keypress', e => { if (e.key === 'Enter' && !button.disabled) sendMessage(); });
+
+  function addMsg(text, type) {
+    const div = document.createElement('div');
+    div.className = `msg ${type}`;
+    div.textContent = text;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    return div;
+  }
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    button.disabled = true;
+    addMsg(text, 'user');
+    const typing = addMsg('TechMate está processando...', 'agent typing');
+
+    try {
+      const res  = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+      });
+      const data = await res.json();
+      typing.remove();
+      addMsg(data.response || data.error || 'Erro desconhecido.', 'agent');
+    } catch {
+      typing.remove();
+      addMsg('Erro ao conectar com o agente.', 'agent');
+    } finally {
+      button.disabled = false;
+      input.focus();
+    }
+  }
+</script>
+</body>
+</html>
