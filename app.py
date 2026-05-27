@@ -7,7 +7,7 @@ from agno.db.sqlite.sqlite import SqliteDb
 
 from tools import get_system_stats, get_weather, get_crypto_price, check_website_health
 
-load_dotenv()
+load_dotenv(override=True)
 
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "spectra-secret-change-in-prod")

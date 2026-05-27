@@ -6,7 +6,7 @@ from agno.db.sqlite.sqlite import SqliteDb
 
 from tools import get_system_stats, get_weather, get_crypto_price, check_website_health
 
-load_dotenv()
+load_dotenv(override=True)
 
 MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "gemini").lower()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
