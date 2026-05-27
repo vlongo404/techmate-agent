@@ -201,7 +201,7 @@ def check_website_health(url: str) -> dict:
             url,
             timeout=10,
             allow_redirects=True,
-            headers={"User-Agent": "TechMate-HealthCheck/1.0"},
+            headers={"User-Agent": "Spectra AI-HealthCheck/1.0"},
         )
         elapsed_ms = round((time.time() - start) * 1000, 2)
 

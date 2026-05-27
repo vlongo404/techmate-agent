@@ -1,4 +1,4 @@
-# TechMate Agent
+# Spectra AI Agent
 
 Agente de IA desenvolvido com o framework **Agno**, especializado em monitoramento tecnológico. Responde perguntas sobre recursos do sistema, clima, criptomoedas e saúde de websites via CLI ou interface web.
 
@@ -26,7 +26,7 @@ Agente de IA desenvolvido com o framework **Agno**, especializado em monitoramen
 
 ```bash
 # 1. Clone ou extraia o projeto
-cd techmate-agent
+cd spectra-ai-agent
 
 # 2. Crie e ative o ambiente virtual
 python -m venv venv
@@ -53,8 +53,8 @@ GEMINI_API_KEY=sua_chave_aqui
 GEMINI_MODEL=gemini-2.0-flash
 OLLAMA_HOST=http://localhost:11434
 OLLAMA_MODEL=qwen3:0.6b
-SESSION_ID=techmate-cli
-DB_PATH=techmate.db
+SESSION_ID=spectra-ai-cli
+DB_PATH=spectra-ai.db
 FLASK_SECRET_KEY=string-aleatoria
 FLASK_PORT=5000
 ```
@@ -71,10 +71,10 @@ python main.py
 
 ```
 Você: Como está o uso do sistema agora?
-TechMate: CPU: 14% | RAM: 7,2 GB / 16 GB (45%) | Disco: 120 GB / 500 GB (24%)...
+Spectra AI: CPU: 14% | RAM: 7,2 GB / 16 GB (45%) | Disco: 120 GB / 500 GB (24%)...
 
 Você: Qual o preço do Bitcoin hoje?
-TechMate: Bitcoin (BTC): $67.420 USD / R$ 342.890 BRL | Variação 24h: +2,3%...
+Spectra AI: Bitcoin (BTC): $67.420 USD / R$ 342.890 BRL | Variação 24h: +2,3%...
 
 Você: sair
 ```
@@ -95,13 +95,13 @@ Acesse: [http://localhost:5000](http://localhost:5000)
 
 ```bash
 # Build da imagem
-docker build -t techmate-agent .
+docker build -t spectra-ai-agent .
 
 # Executar CLI (necessário .env configurado)
-docker run -it --env-file .env techmate-agent
+docker run -it --env-file .env spectra-ai-agent
 
 # Executar interface web
-docker run -p 5000:5000 --env-file .env techmate-agent python app.py
+docker run -p 5000:5000 --env-file .env spectra-ai-agent python app.py
 ```
 
 ---
@@ -109,7 +109,7 @@ docker run -p 5000:5000 --env-file .env techmate-agent python app.py
 ## Estrutura do projeto
 
 ```
-techmate-agent/
+spectra-ai-agent/
 ├── main.py           # Ponto de entrada CLI
 ├── app.py            # Interface web Flask
 ├── tools.py          # 4 tools do agente

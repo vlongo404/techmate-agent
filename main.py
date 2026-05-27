@@ -13,8 +13,8 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:0.6b")
-SESSION_ID = os.getenv("SESSION_ID", "techmate-cli")
-DB_PATH = os.getenv("DB_PATH", "techmate.db")
+SESSION_ID = os.getenv("SESSION_ID", "spectra-cli")
+DB_PATH = os.getenv("DB_PATH", "spectra.db")
 
 
 def build_model():
@@ -27,7 +27,7 @@ def build_model():
 
 
 DESCRIPTION = """
-Você é TechMate, um assistente tecnológico especializado. Você pode:
+Você é Spectra AI, um assistente tecnológico especializado. Você pode:
 - Monitorar recursos do sistema (CPU, RAM, disco, processos)
 - Consultar o clima atual de qualquer cidade do mundo
 - Verificar preços e dados de mercado de criptomoedas
@@ -54,7 +54,7 @@ def main():
     )
 
     print("=" * 58)
-    print("   TechMate Agent — Assistente Tecnológico")
+    print("   Spectra AI — Assistente Tecnológico")
     print("=" * 58)
     print(f"   Modelo : {MODEL_PROVIDER.upper()} | Sessão: {SESSION_ID}")
     print("   Tools  : sistema · clima · cripto · website")
@@ -65,17 +65,17 @@ def main():
         try:
             user_input = input("Você: ").strip()
         except (KeyboardInterrupt, EOFError):
-            print("\n\nEncerrando TechMate. Até logo!")
+            print("\n\nEncerrando Spectra AI. Até logo!")
             sys.exit(0)
 
         if not user_input:
             continue
 
         if user_input.lower() in ("sair", "exit", "quit", "q"):
-            print("Encerrando TechMate. Até logo!")
+            print("Encerrando Spectra AI. Até logo!")
             break
 
-        print("\nTechMate:", end=" ", flush=True)
+        print("\nSpectra AI:", end=" ", flush=True)
         agent.print_response(user_input, stream=True)
         print()
 

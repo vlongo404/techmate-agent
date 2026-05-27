@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechMate Agent</title>
+  <title>Spectra AI Agent</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -110,7 +110,7 @@
 
 <header>
   <div>
-    <h1>TechMate Agent</h1>
+    <h1>Spectra AI Agent</h1>
     <div class="tags">
       <span class="tag">sistema</span>
       <span class="tag">clima</span>
@@ -121,7 +121,7 @@
 </header>
 
 <div id="chat">
-  <div class="msg agent">Olá! Sou o <strong>TechMate</strong>, seu assistente tecnológico.
+  <div class="msg agent">Olá! Sou o <strong>Spectra AI</strong>, seu assistente tecnológico.
 
 Posso te ajudar com:
 • <strong>Sistema</strong> — uso de CPU, RAM, disco e processos
@@ -160,7 +160,7 @@ Como posso ajudar?</div>
     input.value = '';
     button.disabled = true;
     addMsg(text, 'user');
-    const typing = addMsg('TechMate está processando...', 'agent typing');
+    const typing = addMsg('Spectra AI está processando...', 'agent typing');
 
     try {
       const res  = await fetch('/chat', {

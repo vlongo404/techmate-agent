@@ -1,9 +1,9 @@
 @echo off
-title TechMate Agent - Iniciando...
+title Spectra AI Agent - Iniciando...
 cd /d "%~dp0"
 
 echo ================================================
-echo   TechMate Agent - Iniciando...
+echo   Spectra AI Agent - Iniciando...
 echo ================================================
 
 REM Verifica se o .env existe
@@ -23,12 +23,12 @@ pip install -r requirements.txt --quiet
 
 REM Abre a CLI em uma nova janela
 echo [2/3] Abrindo CLI...
-start "TechMate CLI" cmd /k "cd /d "%~dp0" && python main.py"
+start "Spectra AI CLI" cmd /k "cd /d "%~dp0" && python main.py"
 
 REM Aguarda 2 segundos e sobe o servidor web
 echo [3/3] Iniciando servidor web...
 timeout /t 2 /nobreak >nul
-start "TechMate Web" cmd /k "cd /d "%~dp0" && python app.py"
+start "Spectra AI Web" cmd /k "cd /d "%~dp0" && python app.py"
 
 REM Aguarda o Flask subir e abre o navegador
 timeout /t 3 /nobreak >nul
